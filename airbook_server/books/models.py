@@ -6,9 +6,10 @@ class BookShop(models.Model):
 
 
 class Book(models.Model):
+    bookshop = models.ForeignKey(BookShop)
     title = models.CharField(max_length=200)
     publication_year = models.IntegerField()
-    
+
 
 
 
