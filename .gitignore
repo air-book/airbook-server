@@ -56,3 +56,6 @@ target/
 #virtualenv
 env/*
 
+#dbs
+*.sqlite
+*.sqlite3
