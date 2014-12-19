@@ -1,0 +1,5 @@
+Django==1.7.1
+PyYAML==3.11
+django-rest-swagger==0.2.6
+djangorestframework==3.0.2
+wsgiref==0.1.2
