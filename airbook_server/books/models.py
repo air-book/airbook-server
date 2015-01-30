@@ -11,7 +11,7 @@ class BookAuthor(models.Model):
 
 
 class BookCategory(models.Model):
-    category = models.CharField(max_lenght=16, choices=BOOK_CATEGORIES)
+    category = models.CharField(max_lenght=16)
 
 
 class Book(models.Model):
