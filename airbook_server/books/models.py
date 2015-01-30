@@ -11,7 +11,7 @@ class BookAuthor(models.Model):
 
 
 class BookCategory(models.Model):
-    category = models.CharField(max_lenght=16)
+    category = models.CharField(max_length=16)
 
 
 class Book(models.Model):
@@ -23,12 +23,12 @@ class Book(models.Model):
     price = models.FloatField()
     publication_year = models.IntegerField(null=True, blank=True)
     editor = models.CharField(max_length=200)
-    isbn_code = models.Charfield(max_length=100, null=True, blank=True)
+    isbn_code = models.CharField(max_length=100, null=True, blank=True)
 
 
 class BookImage(models.Model):
-    book = models.ForeignKey(Book)
-    image = models.ImageField(upload_to="book_images", related_name="images")
+    book = models.ForeignKey(Book, related_name="images")
+    image = models.ImageField(upload_to="book_images")
 
 
 
