@@ -3,6 +3,9 @@ from django.db import models
 #from django.contrib.auth.models import User
 
 
+
+
+
 class BookShop(models.Model):
     name = models.CharField(max_length=200)
 
@@ -24,6 +27,13 @@ class BookCategory(models.Model):
         return u'%s' % self.category
 
 
+BOOK_CONDITIONS = (
+    (0, 'Pessimo'),
+    (1, 'Medio'),
+    (2, 'Buono'),
+    (3, 'Nuovo'),
+)
+
 class Book(models.Model):
     bookshop = models.ForeignKey(BookShop)
     title = models.CharField(max_length=200)
@@ -35,6 +45,7 @@ class Book(models.Model):
     editor = models.CharField(max_length=200)
     isbn_code = models.CharField(max_length=100, null=True, blank=True)
     archive_code = models.CharField(max_length=10, null=True, blank=True)
+    conditions = models.IntegerField(choices=BOOK_CONDITIONS, null=True, blank=True)
 
     def __unicode__(self):
         return u'%s' % self.title
