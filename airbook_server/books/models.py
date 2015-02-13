@@ -34,6 +34,7 @@ class Book(models.Model):
     publication_year = models.IntegerField(null=True, blank=True)
     editor = models.CharField(max_length=200)
     isbn_code = models.CharField(max_length=100, null=True, blank=True)
+    archive_code = models.CharField(max_length=10, null=True, blank=True)
 
     def __unicode__(self):
         return u'%s' % self.title
@@ -45,10 +46,3 @@ class BookImage(models.Model):
 
     def __unicode__(self):
         return u'%s' % os.path.basename(self.image.path)
-
-
-
-
-
-
-
