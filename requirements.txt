@@ -1,6 +1,8 @@
 Django==1.7.1
+Pillow==2.7.0
 PyYAML==3.11
+argparse==1.2.1
+django-admin-bootstrapped==2.3.3
 django-rest-swagger==0.2.6
 djangorestframework==3.0.2
 wsgiref==0.1.2
-django_admin_bootstrapped==2.3.3
