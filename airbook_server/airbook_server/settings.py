@@ -37,8 +37,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'rest_framework',
+    'django_filters',
+    'rest_framework.filters',
     'rest_framework_swagger',
     'books',
 
@@ -107,4 +108,5 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.JSONRenderer',
     ),
     'DEFAULT_PAGINATION_SERIALIZER_CLASS': 'books.pagination.CustomPaginationSerializer',
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
 }
