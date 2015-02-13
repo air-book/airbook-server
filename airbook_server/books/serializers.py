@@ -25,6 +25,11 @@ class BookAuthorSerializer(serializers.ModelSerializer):
 
 class BookImageSerializer(serializers.ModelSerializer):
 
+    image_thumb = serializers.SerializerMethodField(read_only=True)
+
+    def get_image_thumb(self, obj):
+        return obj.image_thumb.url
+
     class Meta:
         model = BookImage        
 

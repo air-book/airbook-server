@@ -2,7 +2,11 @@ Django==1.7.1
 Pillow==2.7.0
 PyYAML==3.11
 django-admin-bootstrapped==2.3.1
+django-appconf==0.6
+django-imagekit==3.2.5
 django-rest-swagger==0.2.6
 djangorestframework==3.0.2
 factory-boy==2.4.1
+pilkit==1.1.12
+six==1.9.0
 wsgiref==0.1.2
