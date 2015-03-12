@@ -9,8 +9,11 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^books/', include('books.urls')),
+    url(r'^users/', include('airbook_users.urls')),    
     url(r'^docs/', include('rest_framework_swagger.urls')),
 )
+
+
 
 
 urlpatterns = format_suffix_patterns(urlpatterns)

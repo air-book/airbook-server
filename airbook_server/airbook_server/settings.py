@@ -37,12 +37,17 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #rest stuff
     'rest_framework',
+    'rest_framework.authtoken',
     'django_filters',
     'rest_framework.filters',
     'rest_framework_swagger',
+    
+    #our apps
+    'airbook_users',
     'books',
-
 
 )
 
