@@ -6,8 +6,30 @@ from rest_framework.exceptions import APIException, AuthenticationFailed
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets
+from rest_framework import permissions
 from .serializers import WishItemSerializer
 from .models import WishItem
+
+
+from rest_framework import permissions
+
+class SameUserPermission(permissions.BasePermission):
+    """
+    
+    """
+
+    def has_object_permission(self, request, view, obj):
+        print 1
+        raise
+        # Read permissions are allowed to any request,
+        # so we'll always allow GET, HEAD or OPTIONS requests.
+        #if request.method in permissions.SAFE_METHODS:
+        #    return True
+
+        # Instance must have an attribute named `owner`.
+        print obj.user, request.user
+        #return obj.user == request.user
+        return False
 
 
 class SessionLoginView(APIView):
@@ -44,7 +66,8 @@ class CurrentUserView(APIView):
 
 class WishItemViewSet(viewsets.ModelViewSet):
     serializer_class = WishItemSerializer
+    permission_classes = (SameUserPermission,)
     queryset = WishItem.objects.all()
-    
+
 
 
