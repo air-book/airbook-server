@@ -5,6 +5,10 @@ from rest_framework.response import Response
 from rest_framework.exceptions import APIException, AuthenticationFailed
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import viewsets
+from .serializers import WishItemSerializer
+from .models import WishItem
+
 
 class SessionLoginView(APIView):
     def post(self, request):
@@ -35,3 +39,12 @@ class CurrentUserView(APIView):
     def get(self, request, format=None):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
+
+
+
+class WishItemViewSet(viewsets.ModelViewSet):
+    serializer_class = WishItemSerializer
+    queryset = WishItem.objects.all()
+    
+
+
