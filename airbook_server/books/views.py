@@ -3,6 +3,7 @@ from .serializers import ( BookShopSerializer, BookSerializer,
     BookCategorySerializer, BookAuthorSerializer, BookImageSerializer )
 from .models import BookShop, Book, BookCategory, BookAuthor, BookImage
 from rest_framework import viewsets
+from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 import django_filters
 
 class BookShopViewSet(viewsets.ModelViewSet):
@@ -21,6 +22,7 @@ class BookFilter(django_filters.FilterSet):
 
 
 class BookViewSet(viewsets.ModelViewSet):
+    authentication_classes = (TokenAuthentication, )
     serializer_class = BookSerializer
     queryset = Book.objects.all()
     filter_class = BookFilter

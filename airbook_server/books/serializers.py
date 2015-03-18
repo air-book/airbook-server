@@ -1,5 +1,6 @@
 from .models import BookShop, Book, BookCategory, BookAuthor, BookImage
 from rest_framework import serializers
+from airbook_users.models import WishItem
 
 
 class BookShopSerializer(serializers.ModelSerializer):
@@ -40,9 +41,15 @@ class BookSerializer(serializers.ModelSerializer):
     bookshop_name = serializers.SerializerMethodField(read_only=True)
     authors = BookAuthorSerializer(many=True, read_only=True)
     categories = BookCategorySerializer(many=True, read_only=True)
+    is_wished = serializers.SerializerMethodField(read_only=True)
 
     def get_bookshop_name(self, obj):
         return obj.bookshop.name
+
+    def get_is_wished(self, obj):
+        req = self.context['request']
+        user = req.user
+        return obj.wishitem_set.filter(user=user).exists()
 
     class Meta:
         model = Book

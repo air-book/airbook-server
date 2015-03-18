@@ -7,8 +7,11 @@ from rest_framework.authentication import SessionAuthentication, TokenAuthentica
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets
 from rest_framework import permissions
+from rest_framework import mixins
 from .serializers import WishItemSerializer
 from .models import WishItem
+from rest_framework import status
+from books.models import Book
 
 
 from rest_framework import permissions
@@ -28,8 +31,8 @@ class SameUserPermission(permissions.BasePermission):
 
         # Instance must have an attribute named `owner`.
         print obj.user, request.user
-        #return obj.user == request.user
-        return False
+        return obj.user == request.user
+        #return False
 
 
 class SessionLoginView(APIView):
@@ -63,11 +66,53 @@ class CurrentUserView(APIView):
         return Response(serializer.data)
 
 
-
+"""
 class WishItemViewSet(viewsets.ModelViewSet):
     serializer_class = WishItemSerializer
     permission_classes = (SameUserPermission,)
-    queryset = WishItem.objects.all()
+
+    def get_queryset(self):
+        return WishItem.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        print serializer.istance
+        serializer.save()
+
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        
+"""
+class WishItemViewSet(viewsets.GenericViewSet):
+    model = WishItem
+    authentication_classes = (TokenAuthentication, )
+    permission_classes = (IsAuthenticated,)
+    serializer_class = WishItemSerializer
+    
+    def get_queryset(self):
+        return WishItem.objects.filter(user=self.request.user.id)
+
+    def create(self, request):
+        book = Book.objects.get(pk=request.data['book'])
+        wish = WishItem.objects.create(user=request.user, book=book)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+        
+        
+    def retrieve(self, request, pk=None):
+        pass
+
+    def destroy(self, request, pk=None, format=None):
+        book = Book.objects.get(pk=pk)
+        wish = WishItem.objects.filter(user=request.user, book=book)
+        wish.delete()
+        return Response({})
+
+
+    
+
+
+
+
 
 
 

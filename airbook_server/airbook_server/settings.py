@@ -116,3 +116,10 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_SERIALIZER_CLASS': 'books.pagination.CustomPaginationSerializer',
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
 }
+
+
+SWAGGER_SETTINGS = {
+    "api_key" : "8cb06edd39379aff4baa04abd51a6e80cca3db7f",
+    #"is_authenticated": True,  #
+    #"is_superuser": True,  #
+}
