@@ -1,10 +1,11 @@
 from django.conf.urls import patterns, include, url
 from rest_framework.authtoken.views import ObtainAuthToken 
-from .views import SessionLoginView, CurrentUserView, WishItemViewSet
+from .views import SessionLoginView, CurrentUserView, WishItemViewSet, CartItemViewSet
 from rest_framework.routers import SimpleRouter
 
 router = SimpleRouter()
 router.register(r'wishes', WishItemViewSet)
+router.register(r'cart', CartItemViewSet)
 
 urlpatterns = patterns('',
     url(r'^token-auth/$', ObtainAuthToken.as_view()),

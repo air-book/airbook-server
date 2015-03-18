@@ -12,14 +12,17 @@ class UserSerializer(ModelSerializer):
 
 class WishItemSerializer(ModelSerializer):
     book_object = SerializerMethodField(read_only=True)
-
     def get_book_object(self,obj):
-        return BookSerializer(obj.book).data
+        return BookSerializer(obj.book, context=self.context).data
 
     class Meta:
         model = WishItem
 
 
 class CartItemSerializer(ModelSerializer):
+    book_object = SerializerMethodField(read_only=True)
+    def get_book_object(self,obj):
+        return BookSerializer(obj.book, context=self.context).data
+
     class Meta:
         model = CartItem

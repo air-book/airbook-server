@@ -8,8 +8,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework import mixins
-from .serializers import WishItemSerializer
-from .models import WishItem
+from .serializers import WishItemSerializer, CartItemSerializer
+from .models import WishItem, CartItem
 from rest_framework import status
 from books.models import Book
 
@@ -18,21 +18,11 @@ from rest_framework import permissions
 
 class SameUserPermission(permissions.BasePermission):
     """
-    
+    --- Not used right now
     """
 
     def has_object_permission(self, request, view, obj):
-        print 1
-        raise
-        # Read permissions are allowed to any request,
-        # so we'll always allow GET, HEAD or OPTIONS requests.
-        #if request.method in permissions.SAFE_METHODS:
-        #    return True
-
-        # Instance must have an attribute named `owner`.
-        print obj.user, request.user
         return obj.user == request.user
-        #return False
 
 
 class SessionLoginView(APIView):
@@ -66,27 +56,10 @@ class CurrentUserView(APIView):
         return Response(serializer.data)
 
 
-"""
-class WishItemViewSet(viewsets.ModelViewSet):
-    serializer_class = WishItemSerializer
-    permission_classes = (SameUserPermission,)
-
-    def get_queryset(self):
-        return WishItem.objects.filter(user=self.request.user)
-
-    def perform_create(self, serializer):
-        print serializer.istance
-        serializer.save()
-
-
-    def perform_update(self, serializer):
-        instance = serializer.save()
-        
-"""
 class WishItemViewSet(viewsets.GenericViewSet):
     model = WishItem
     authentication_classes = (TokenAuthentication, )
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, )
     serializer_class = WishItemSerializer
     
     def get_queryset(self):
@@ -95,20 +68,37 @@ class WishItemViewSet(viewsets.GenericViewSet):
     def create(self, request):
         book = Book.objects.get(pk=request.data['book'])
         wish = WishItem.objects.create(user=request.user, book=book)
-        return Response(status=status.HTTP_204_NO_CONTENT)
-        
-        
-    def retrieve(self, request, pk=None):
-        pass
+        return Response(WishItemSerializer(wish, context={'request': request}).data)
+
 
     def destroy(self, request, pk=None, format=None):
         book = Book.objects.get(pk=pk)
         wish = WishItem.objects.filter(user=request.user, book=book)
         wish.delete()
-        return Response({})
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+
+class CartItemViewSet(viewsets.GenericViewSet):
+    model = CartItem
+    authentication_classes = (TokenAuthentication, )
+    permission_classes = (IsAuthenticated, )
+    serializer_class = CartItemSerializer
     
+    def get_queryset(self):
+        return CartItem.objects.filter(user=self.request.user.id)
+
+    def create(self, request):
+        book = Book.objects.get(pk=request.data['book'])
+        wish = CartItem.objects.create(user=request.user, book=book)
+        return Response(CartItemSerializer(wish, context={'request': request}).data)
+
+
+    def destroy(self, request, pk=None, format=None):
+        book = Book.objects.get(pk=pk)
+        wish = CartItem.objects.filter(user=request.user, book=book)
+        wish.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)    
 
 
 

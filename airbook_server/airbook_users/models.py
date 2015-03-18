@@ -7,9 +7,15 @@ class WishItem(models.Model):
     user = models.ForeignKey(User)
     book = models.ForeignKey(Book)
 
+    class Meta:
+        unique_together = ['user', 'book']
+
 
 class CartItem(models.Model):
     user = models.ForeignKey(User)
     book = models.ForeignKey(Book)
+
+    class Meta:
+        unique_together = ['user', 'book']
 
 
