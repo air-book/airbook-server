@@ -49,11 +49,15 @@ class BookSerializer(serializers.ModelSerializer):
 
     def get_is_wished(self, obj):
         req = self.context['request']
+        if not req.user.id:
+            return False
         user = req.user
         return obj.wishitem_set.filter(user=user).exists()
 
     def get_in_cart(self, obj):
         req = self.context['request']
+        if not req.user.id:
+            return False
         user = req.user
         return obj.cartitem_set.filter(user=user).exists()
 
