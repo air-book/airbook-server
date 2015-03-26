@@ -3,11 +3,12 @@ from django.db import models
 #from django.contrib.auth.models import User
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
-
+from django.contrib.auth.models import User
 
 
 
 class BookShop(models.Model):
+    user = models.OneToOneField(User)
     name = models.CharField(max_length=200)
 
     def __unicode__(self):
