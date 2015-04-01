@@ -39,7 +39,7 @@ class SessionLoginView(APIView):
                     #login(request, user)
                     serializer = UserSerializer(user)
                     return Response(serializer.data)
-            
+
             raise AuthenticationFailed
 
         except:
@@ -61,7 +61,7 @@ class WishItemViewSet(viewsets.GenericViewSet):
     authentication_classes = (TokenAuthentication, )
     permission_classes = (IsAuthenticated, )
     serializer_class = WishItemSerializer
-    
+
     def get_queryset(self):
         return WishItem.objects.filter(user=self.request.user.id)
 
@@ -77,6 +77,11 @@ class WishItemViewSet(viewsets.GenericViewSet):
         wish.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+    def list(self, request):
+        queryset = self.get_queryset()
+        serializer = WishItemSerializer (queryset, many=True, context={'request': request})
+        return Response(serializer.data)
+
 
 
 class CartItemViewSet(viewsets.GenericViewSet):
@@ -84,7 +89,7 @@ class CartItemViewSet(viewsets.GenericViewSet):
     authentication_classes = (TokenAuthentication, )
     permission_classes = (IsAuthenticated, )
     serializer_class = CartItemSerializer
-    
+
     def get_queryset(self):
         return CartItem.objects.filter(user=self.request.user.id)
 
@@ -98,11 +103,9 @@ class CartItemViewSet(viewsets.GenericViewSet):
         book = Book.objects.get(pk=pk)
         wish = CartItem.objects.filter(user=request.user, book=book)
         wish.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)    
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-
-
-
-
-
+    def list(self, request):
+        queryset = self.get_queryset()
+        serializer = CartItemSerializer (queryset, many=True, context={'request': request})
+        return Response(serializer.data)
