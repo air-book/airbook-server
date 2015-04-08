@@ -48,7 +48,7 @@ class SessionLoginView(APIView):
 
 
 class CurrentUserView(APIView):
-    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    authentication_classes = (TokenAuthentication, )
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, format=None):

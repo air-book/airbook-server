@@ -56,10 +56,14 @@ class Book(models.Model):
 class BookImage(models.Model):
     book = models.ForeignKey(Book, related_name="images")
     image = models.ImageField(upload_to="book_images")
+    order = models.IntegerField(null=True, blank=True, default=0)
     image_thumb = ImageSpecField(source='image',
                                       processors=[ResizeToFill(400, 250)],
                                       format='JPEG',
                                       options={'quality': 90})
+
+    class Meta:
+        ordering = ['order']
 
     def __unicode__(self):
         return u'%s' % os.path.basename(self.image.path)
