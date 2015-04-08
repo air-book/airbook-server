@@ -4,8 +4,8 @@ from .views import SessionLoginView, CurrentUserView, WishItemViewSet, CartItemV
 from rest_framework.routers import SimpleRouter
 
 router = SimpleRouter()
-router.register(r'wishes', WishItemViewSet)
-router.register(r'cart', CartItemViewSet)
+router.register(r'wishes', WishItemViewSet, base_name='wishes')
+router.register(r'cart', CartItemViewSet, base_name='cart')
 
 urlpatterns = patterns('',
     url(r'^token-auth/$', ObtainAuthToken.as_view()),

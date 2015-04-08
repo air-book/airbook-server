@@ -48,7 +48,7 @@ class BookImageViewSet(viewsets.ModelViewSet):
 
 class BooksAdminPermission(permissions.BasePermission):
     """
-    Global permission check for blacklisted IPs.
+    
     """
 
     def has_permission(self, request, view):
