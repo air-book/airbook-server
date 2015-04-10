@@ -22,6 +22,7 @@ class BookAuthorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BookAuthor
+        fields = ['id', 'author']
 
 
 class BookImageSerializer(serializers.ModelSerializer):
@@ -41,10 +42,16 @@ class BookSerializer(serializers.ModelSerializer):
 
     images = BookImageSerializer(many=True, read_only=True)
     bookshop_name = serializers.SerializerMethodField(read_only=True)
-    authors = BookAuthorSerializer(many=True, read_only=True)
+    authors = BookAuthorSerializer(many=True)
     categories = BookCategorySerializer(many=True, read_only=True)
     is_wished = serializers.SerializerMethodField(read_only=True)
     in_cart = serializers.SerializerMethodField(read_only=True)
+    """
+    authors = serializers.PrimaryKeyRelatedField(
+        many=True,
+        queryset = BookAuthor.objects.all()
+    )
+    """
 
     def get_bookshop_name(self, obj):
         return obj.bookshop.name
@@ -62,6 +69,19 @@ class BookSerializer(serializers.ModelSerializer):
             return False
         user = req.user
         return obj.cartitem_set.filter(user=user).exists()
+
+        
+    def update(self, instance, validated_data):
+        if 'authors' in validated_data:
+            authors_data = validated_data.pop('authors')
+        else:
+            authors_data = []
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+
+        return instance
 
     class Meta:
         model = Book
