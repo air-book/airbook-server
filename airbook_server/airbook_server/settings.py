@@ -71,8 +71,12 @@ WSGI_APPLICATION = 'airbook_server.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        #'NAME': os.path.join(BASE_PATH, 'db', 'db.sqlite3'),
+        'NAME' : os.environ('AIRBOOK_DB'),
+        'USER' : os.environ('AIRBOOK_USER'),
+        'PASSWORD' : os.environ('AIRBOOK_PASSWORD'),
+        'HOST' : 'localhost'
     }
 }
 
@@ -94,6 +98,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'static_collected'))
 
 STATICFILES_DIRS = (
     os.path.abspath(os.path.join(BASE_DIR, "../../airbook-web/")),
