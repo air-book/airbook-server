@@ -102,8 +102,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'static_collected'))
 
 STATICFILES_DIRS = (
-    os.path.abspath(os.path.join(BASE_DIR, "../../airbook-web/")),
-    os.path.abspath(os.path.join(BASE_DIR, "../../airbook-loader/")),
+    #os.path.abspath(os.path.join(BASE_DIR, "../../airbook-web/")),
+    #os.path.abspath(os.path.join(BASE_DIR, "../../airbook-loader/")),
 )
 
 
