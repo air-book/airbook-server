@@ -73,9 +73,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         #'NAME': os.path.join(BASE_PATH, 'db', 'db.sqlite3'),
-        'NAME' : os.environ('AIRBOOK_DB'),
-        'USER' : os.environ('AIRBOOK_USER'),
-        'PASSWORD' : os.environ('AIRBOOK_PASSWORD'),
+        'NAME' : os.environ.get('AIRBOOK_DB'),
+        'USER' : os.environ.get('AIRBOOK_USER'),
+        'PASSWORD' : os.environ.get('AIRBOOK_PASSWORD'),
         'HOST' : 'localhost'
     }
 }
