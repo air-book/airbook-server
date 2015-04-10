@@ -1,7 +1,7 @@
 from .models import BookShop, Book, BookCategory, BookAuthor, BookImage
 from rest_framework import serializers
 from airbook_users.models import WishItem
-
+from smartfilefield import SmartFileField
 
 class BookShopSerializer(serializers.ModelSerializer):
 
@@ -26,6 +26,7 @@ class BookAuthorSerializer(serializers.ModelSerializer):
 
 class BookImageSerializer(serializers.ModelSerializer):
 
+    image = SmartFileField()
     image_thumb = serializers.SerializerMethodField(read_only=True)
 
     def get_image_thumb(self, obj):
