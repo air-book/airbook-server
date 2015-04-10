@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = '9tm-0p!q=8@vv9o#(ubdzx8#$v@)x445%2p+_-5l51d1z&#g*o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = DEBUG
 
@@ -68,14 +68,15 @@ WSGI_APPLICATION = 'airbook_server.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
+import production_settings
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         #'NAME': os.path.join(BASE_PATH, 'db', 'db.sqlite3'),
-        'NAME' : os.environ.get('AIRBOOK_DB'),
-        'USER' : os.environ.get('AIRBOOK_USER'),
-        'PASSWORD' : os.environ.get('AIRBOOK_PASSWORD'),
+        'NAME' : production_settings.AIRBOOK_DB,
+        'USER' : production_settings.AIRBOOK_USER,
+        'PASSWORD' : production_settings.AIRBOOK_PASSWORD,
         'HOST' : 'localhost'
     }
 }
