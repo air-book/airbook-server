@@ -42,7 +42,7 @@ class BookSerializer(serializers.ModelSerializer):
 
     images = BookImageSerializer(many=True, read_only=True)
     bookshop_name = serializers.SerializerMethodField(read_only=True)
-    authors = BookAuthorSerializer(many=True)
+    authors = BookAuthorSerializer(many=True, required=False)
     categories = BookCategorySerializer(many=True, read_only=True)
     is_wished = serializers.SerializerMethodField(read_only=True)
     in_cart = serializers.SerializerMethodField(read_only=True)
