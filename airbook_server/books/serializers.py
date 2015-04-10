@@ -30,7 +30,8 @@ class BookImageSerializer(serializers.ModelSerializer):
     image_thumb = serializers.SerializerMethodField(read_only=True)
 
     def get_image_thumb(self, obj):
-        return obj.image_thumb.url
+        req = self.context['request']
+        return req.build_absolute_uri(obj.image_thumb.url)
 
     class Meta:
         model = BookImage        
