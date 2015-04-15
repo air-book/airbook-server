@@ -22,8 +22,13 @@ class BookAuthor(models.Model):
         return u'%s' % self.author
 
 
-class BookCategory(models.Model):
-    category = models.CharField(max_length=16)
+class BookTags(models.Model):
+    tags = models.CharField(max_length=16)
+    order = models.IntegerField(null=True, blank=True, default=0)
+
+    class Meta:
+        ordering = ['order']
+
 
     def __unicode__(self):
         return u'%s' % self.category
@@ -50,10 +55,9 @@ class Book(models.Model):
     width = models.IntegerField(null=True, blank=True)
     heigth = models.IntegerField(null=True, blank=True)
     conditions = models.IntegerField(choices=BOOK_CONDITIONS, null=True, blank=True)
-    #TODO: true if conditions != 3
     conditions_detail = JSONField(null=True, blank=True)
     description = models.CharField(max_length=2000)
-    categories = models.ManyToManyField(BookCategory)
+    tags = models.ManyToManyField(BookTags)
 
 
 
