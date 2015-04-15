@@ -58,11 +58,22 @@ class Book(models.Model):
     conditions_detail = JSONField(null=True, blank=True)
     description = models.CharField(max_length=2000)
     tags = models.ManyToManyField(BookCategory)
-
+    saleable = models.BooleanField(default=False)
+    publish = models.BooleanField(default=True)
 
 
     def __unicode__(self):
         return u'%s' % self.title
+
+
+    def save(self, *args, **kwargs):
+        if self.price and self.editor:
+            self.saleable = True
+        else:
+            self.saleable = False
+
+
+        return super(Book, self).save(*args, **kwargs)
 
 
 class BookImage(models.Model):
