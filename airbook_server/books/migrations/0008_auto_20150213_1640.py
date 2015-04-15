@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='book',
             name='categories',
-            field=models.ManyToManyField(to='books.BookCategory', null=True, blank=True),
+            field=models.ManyToManyField(to='books.BookTags', null=True, blank=True),
             preserve_default=True,
         ),
     ]

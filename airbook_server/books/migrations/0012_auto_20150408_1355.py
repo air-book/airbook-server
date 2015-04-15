@@ -28,6 +28,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='book',
             name='categories',
-            field=models.ManyToManyField(to='books.BookCategory'),
+            field=models.ManyToManyField(to='books.BookTags'),
         ),
     ]
