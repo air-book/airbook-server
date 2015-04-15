@@ -1,4 +1,4 @@
-from .models import BookShop, Book, BookTags, BookAuthor, BookImage
+from .models import BookShop, Book, BookCategory, BookAuthor, BookImage
 from rest_framework import serializers
 from airbook_users.models import WishItem
 from smartfilefield import SmartFileField
@@ -26,10 +26,10 @@ class BookShopSerializer(serializers.ModelSerializer):
 
 
 
-class BookTagsSerializer(serializers.ModelSerializer):
+class BookCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = BookTags
+        model = BookCategory
 
 
 
@@ -62,7 +62,7 @@ class BookSerializer(serializers.ModelSerializer):
     images = BookImageSerializer(many=True, read_only=True)
     bookshop_name = serializers.SerializerMethodField(read_only=True)
     authors = BookAuthorSerializer(many=True, required=False)
-    categories = BookTagsSerializer(many=True, read_only=True)
+    categories = BookCategorySerializer(many=True, read_only=True)
     is_wished = serializers.SerializerMethodField(read_only=True)
     in_cart = serializers.SerializerMethodField(read_only=True)
     """

@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='BookTags',
+            name='BookCategory',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('category', models.CharField(max_length=16)),
@@ -51,7 +51,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='book',
             name='categories',
-            field=models.ManyToManyField(to='books.BookTags'),
+            field=models.ManyToManyField(to='books.BookCategory'),
             preserve_default=True,
         ),
         migrations.AddField(

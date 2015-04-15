@@ -1,9 +1,9 @@
 from django.contrib import admin
 
 
-from .models import BookShop, Book, BookTags, BookAuthor, BookImage
+from .models import BookShop, Book, BookCategory, BookAuthor, BookImage
 
-admin.site.register(BookTags)
+admin.site.register(BookCategory)
 admin.site.register(BookAuthor)
 admin.site.register(BookImage)
 admin.site.register(BookShop)

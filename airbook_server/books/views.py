@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from .serializers import ( BookShopSerializer, BookSerializer, 
-    BookTagsSerializer, BookAuthorSerializer, BookImageSerializer )
-from .models import BookShop, Book, BookTags, BookAuthor, BookImage
+    BookCategorySerializer, BookAuthorSerializer, BookImageSerializer )
+from .models import BookShop, Book, BookCategory, BookAuthor, BookImage
 from rest_framework import viewsets
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 import django_filters
@@ -32,9 +32,9 @@ class BookViewSet(viewsets.ModelViewSet):
     filter_class = BookFilter
 
 
-class BookTagsViewSet(viewsets.ModelViewSet):
-    serializer_class = BookTagsSerializer
-    queryset = BookTags.objects.all()
+class BookCategoryViewSet(viewsets.ModelViewSet):
+    serializer_class = BookCategorySerializer
+    queryset = BookCategory.objects.all()
 
 
 class BookAuthorViewSet(viewsets.ModelViewSet):

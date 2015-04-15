@@ -7,16 +7,26 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('books', '0011_auto_20150326_0759'),
+        ('books', '0015_book_conditions_detail'),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='bookimage',
+            name='bookcategory',
             options={'ordering': ['order']},
         ),
+        migrations.RenameField(
+            model_name='book',
+            old_name='categories',
+            new_name='tags',
+        ),
+        migrations.RenameField(
+            model_name='bookcategory',
+            old_name='category',
+            new_name='tags',
+        ),
         migrations.AddField(
-            model_name='bookimage',
+            model_name='bookcategory',
             name='order',
             field=models.IntegerField(default=0, null=True, blank=True),
         ),
@@ -24,10 +34,5 @@ class Migration(migrations.Migration):
             model_name='book',
             name='authors',
             field=models.ManyToManyField(to='books.BookAuthor'),
-        ),
-        migrations.AlterField(
-            model_name='book',
-            name='categories',
-            field=models.ManyToManyField(to='books.BookCategory'),
         ),
     ]

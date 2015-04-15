@@ -22,7 +22,7 @@ class BookAuthor(models.Model):
         return u'%s' % self.author
 
 
-class BookTags(models.Model):
+class BookCategory(models.Model):
     tags = models.CharField(max_length=16)
     order = models.IntegerField(null=True, blank=True, default=0)
 
@@ -57,7 +57,7 @@ class Book(models.Model):
     conditions = models.IntegerField(choices=BOOK_CONDITIONS, null=True, blank=True)
     conditions_detail = JSONField(null=True, blank=True)
     description = models.CharField(max_length=2000)
-    tags = models.ManyToManyField(BookTags)
+    tags = models.ManyToManyField(BookCategory)
 
 
 
