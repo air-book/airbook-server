@@ -4,7 +4,7 @@ from django.db import models
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 from django.contrib.auth.models import User
-
+from jsonfield import JSONField
 
 
 class BookShop(models.Model):
@@ -39,15 +39,23 @@ BOOK_CONDITIONS = (
 class Book(models.Model):
     bookshop = models.ForeignKey(BookShop)
     title = models.CharField(max_length=200)
-    description = models.CharField(max_length=2000)
-    categories = models.ManyToManyField(BookCategory)
-    authors = models.ManyToManyField(BookAuthor)
-    price = models.FloatField()
+    authors = models.ManyToManyField(BookAuthor, null=True, blank=True)
+    price = models.FloatField(null=True, blank=True)
     publication_year = models.IntegerField(null=True, blank=True)
-    editor = models.CharField(max_length=200)
+    editor = models.CharField(max_length=200, null=True, blank=True)
     isbn_code = models.CharField(max_length=100, null=True, blank=True)
     archive_code = models.CharField(max_length=10, null=True, blank=True)
+    page_number = models.IntegerField(null=True, blank=True)
+    language = models.CharField(max_length=20, null=True, blank=True)
+    width = models.IntegerField(null=True, blank=True)
+    heigth = models.IntegerField(null=True, blank=True)
     conditions = models.IntegerField(choices=BOOK_CONDITIONS, null=True, blank=True)
+    #TODO: true if conditions != 3
+    conditions_detail = JSONField(null=True, blank=True)
+    description = models.CharField(max_length=2000)
+    categories = models.ManyToManyField(BookCategory)
+
+
 
     def __unicode__(self):
         return u'%s' % self.title

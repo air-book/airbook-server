@@ -2,6 +2,21 @@ from .models import BookShop, Book, BookCategory, BookAuthor, BookImage
 from rest_framework import serializers
 from airbook_users.models import WishItem
 from smartfilefield import SmartFileField
+import field
+
+
+
+
+class JSONField(serializers.Field):
+
+    def to_internal_value(self, obj):
+        return json.dumps(obj)
+
+    def to_representation(self, value):
+        return json.loads(value)
+
+
+
 
 class BookShopSerializer(serializers.ModelSerializer):
 
@@ -25,6 +40,8 @@ class BookAuthorSerializer(serializers.ModelSerializer):
         fields = ['id', 'author']
 
 
+
+
 class BookImageSerializer(serializers.ModelSerializer):
 
     image = SmartFileField()
@@ -35,7 +52,9 @@ class BookImageSerializer(serializers.ModelSerializer):
         return req.build_absolute_uri(obj.image_thumb.url)
 
     class Meta:
-        model = BookImage        
+        model = BookImage
+
+
 
 
 class BookSerializer(serializers.ModelSerializer):
@@ -70,7 +89,7 @@ class BookSerializer(serializers.ModelSerializer):
         user = req.user
         return obj.cartitem_set.filter(user=user).exists()
 
-        
+
     def update(self, instance, validated_data):
         if 'authors' in validated_data:
             authors_data = validated_data.pop('authors')
@@ -85,4 +104,3 @@ class BookSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Book
-
