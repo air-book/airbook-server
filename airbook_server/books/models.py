@@ -44,7 +44,7 @@ BOOK_CONDITIONS = (
 class Book(models.Model):
     bookshop = models.ForeignKey(BookShop)
     title = models.CharField(max_length=200)
-    authors = models.ManyToManyField(BookAuthor, null=True, blank=True)
+    authors = models.ManyToManyField(BookAuthor)
     price = models.FloatField(null=True, blank=True)
     publication_year = models.IntegerField(null=True, blank=True)
     editor = models.CharField(max_length=200, null=True, blank=True)
