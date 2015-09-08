@@ -9,8 +9,24 @@ from jsonfield import JSONField
 
 
 
+
+
+
+class BookCategory(models.Model):
+    tags = models.CharField(max_length=16)
+    order = models.IntegerField(null=True, blank=True, default=0)
+
+    class Meta:
+        ordering = ['order']
+
+
+    def __unicode__(self):
+        return u'%s' % self.category
+
+
 class BookShop(models.Model):
     name = models.CharField(max_length=200)
+    tags = models.ManyToManyField(BookCategory, null=True, blank=True)
 
     def __unicode__(self):
         return u'%s' % self.name
@@ -33,18 +49,6 @@ class BookAuthor(models.Model):
         return u'%s %s' %(self.name, self.surname)
 
 
-class BookCategory(models.Model):
-    tags = models.CharField(max_length=16)
-    order = models.IntegerField(null=True, blank=True, default=0)
-
-    class Meta:
-        ordering = ['order']
-
-
-    def __unicode__(self):
-        return u'%s' % self.category
-
-
 class BookCategoryType(models.Model):
     CATEGORY_TYPE = (
     ('PRIMA EDIZIONE', 'Prima Edizione'),
@@ -56,7 +60,6 @@ class BookCategoryType(models.Model):
     )
     type = models.CharField(max_length=30, choices=CATEGORY_TYPE, null=True, blank=True)
     icon = models.ImageField(upload_to="category_type_image")
-
 
 
 BOOK_CONDITIONS = (
@@ -71,7 +74,6 @@ COVER_TYPE = (
     ('COPERTINA MORBIDA', 'Copertina Morbida'),
     ('COPERTINA RIGIDA', 'Copertina Rigida'),
 )
-
 
 
 class Book(models.Model):
