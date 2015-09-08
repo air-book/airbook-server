@@ -94,8 +94,8 @@ class Book(models.Model):
     conditions = models.IntegerField(choices=BOOK_CONDITIONS, null=True, blank=True)
     conditions_detail = JSONField(null=True, blank=True)
     description = models.CharField(max_length=2000)
-    tags = models.ManyToManyField(BookCategory)
-    category_type = models.ManyToManyField(BookCategoryType)
+    tags = models.ManyToManyField(BookCategory, null=True)
+    category_type = models.ManyToManyField(BookCategoryType, null=True)
     saleable = models.BooleanField(default=False)
     publish = models.BooleanField(default=True)
 
