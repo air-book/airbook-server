@@ -42,7 +42,7 @@ class BookAuthorViewSet(viewsets.ModelViewSet):
     queryset = BookAuthor.objects.all()
     filter_backends = (filters.SearchFilter,)
 
-    search_fields = ['author']
+    search_fields = ['name']
 
 
 class BookImageViewSet(viewsets.ModelViewSet):

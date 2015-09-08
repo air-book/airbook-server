@@ -5,10 +5,7 @@ from smartfilefield import SmartFileField
 import json
 
 
-
-
 class JSONField(serializers.Field):
-
     def to_internal_value(self, obj):
         return json.dumps(obj)
 
@@ -16,34 +13,23 @@ class JSONField(serializers.Field):
         return json.loads(value)
 
 
-
-
 class BookShopSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = BookShop
 
 
-
-
 class BookCategorySerializer(serializers.ModelSerializer):
-
     class Meta:
         model = BookCategory
 
 
-
 class BookAuthorSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = BookAuthor
-        fields = ['id', 'name', 'surname', 'nationality']
-
-
+        fields = ['id', 'name', 'nationality']
 
 
 class BookImageSerializer(serializers.ModelSerializer):
-
     image = SmartFileField()
     image_thumb = serializers.SerializerMethodField(read_only=True)
 
@@ -53,8 +39,6 @@ class BookImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BookImage
-
-
 
 
 class BookSerializer(serializers.ModelSerializer):

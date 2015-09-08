@@ -42,7 +42,6 @@ class BookShopUser(models.Model):
 
 class BookAuthor(models.Model):
     name = models.CharField(max_length=200, null=True, blank=True)
-    surname = models.CharField(max_length=200, null=True, blank=True)
     nationality = models.CharField(max_length=100, null=True, blank=True)
 
     def __unicode__(self):
