@@ -60,7 +60,7 @@ class BooksAdminPermission(permissions.BasePermission):
         try:
             bs = request.user.bookshopuser        
             return True
-        except ObjectDoesNotExist:
+        except RelatedObjectDoesNotExist:
             return False
         
 
@@ -78,7 +78,10 @@ class BookAdminViewSet(BookViewSet):
     permission_classes=(permissions.IsAuthenticated, BooksAdminPermission, )
 
     def get_queryset(self):
-        return Book.objects.filter(bookshop__user=self.request.user)
+        #return Book.objects.all()
+        bookshop = self.request.user.bookshopuser.bookshop
+        print bookshop.id
+        return Book.objects.filter(bookshop=bookshop.id)
 
     def create(self, request):
         bs = request.user.bookshopuser.bookshop

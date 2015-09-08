@@ -21,12 +21,12 @@ class BookCategory(models.Model):
 
 
     def __unicode__(self):
-        return u'%s' % self.category
+        return u'%s' % self.tags
 
 
 class BookShop(models.Model):
     name = models.CharField(max_length=200)
-    tags = models.ManyToManyField(BookCategory, null=True, blank=True)
+    tags = models.ManyToManyField(BookCategory)
 
     def __unicode__(self):
         return u'%s' % self.name
