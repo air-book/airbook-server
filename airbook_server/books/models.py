@@ -37,12 +37,34 @@ class BookCategory(models.Model):
         return u'%s' % self.category
 
 
+class BookCategoryType(models.Model):
+    CATEGORY_TYPE = (
+    ('PRIMA EDIZIONE', 'Prima Edizione'),
+    ('BROSSURA' , 'Brossura'),
+    ('EDIZIONE ECONOMICA', 'Edizione Economica'),
+    ('LIBRO ANTICO', 'Libro Antico'),
+    ('LIBRO AUTOGRAFATO', 'Libro Autografato'),
+    ('LIBRO D'' ARTISTA', 'Libro d'' Artista'),
+    )
+    type = models.CharField(max_length=30, choices=CATEGORY_TYPE, null=True, blank=True)
+    icon = models.ImageField(upload_to="category_type_image")
+
+
+
 BOOK_CONDITIONS = (
     (0, 'Pessimo'),
     (1, 'Medio'),
     (2, 'Buono'),
     (3, 'Nuovo'),
 )
+
+
+COVER_TYPE = (
+    ('COPERTINA MORBIDA', 'Copertina Morbida'),
+    ('COPERTINA RIGIDA', 'Copertina Rigida'),
+)
+
+
 
 class Book(models.Model):
     bookshop = models.ForeignKey(BookShop)
@@ -56,11 +78,14 @@ class Book(models.Model):
     page_number = models.IntegerField(null=True, blank=True)
     language = models.CharField(max_length=20, null=True, blank=True)
     width = models.IntegerField(null=True, blank=True)
+    weigth = models.IntegerField(null=True, blank=True)
     heigth = models.IntegerField(null=True, blank=True)
+    cover = models.CharField(max_length=30, choices=COVER_TYPE, null=True, blank=True)
     conditions = models.IntegerField(choices=BOOK_CONDITIONS, null=True, blank=True)
     conditions_detail = JSONField(null=True, blank=True)
     description = models.CharField(max_length=2000)
     tags = models.ManyToManyField(BookCategory)
+    category_type = models.ManyToManyField(BookCategoryType)
     saleable = models.BooleanField(default=False)
     publish = models.BooleanField(default=True)
 
