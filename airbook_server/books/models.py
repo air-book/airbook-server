@@ -8,12 +8,20 @@ from authtools.models import User
 from jsonfield import JSONField
 
 
+
 class BookShop(models.Model):
-    user = models.OneToOneField(User)
     name = models.CharField(max_length=200)
 
     def __unicode__(self):
         return u'%s' % self.name
+
+
+class BookShopUser(models.Model):
+    user = models.OneToOneField(User)
+    bookshop = models.ForeignKey(BookShop)
+
+    def __unicode__(self):
+        return u'%s' % self.user
 
 
 class BookAuthor(models.Model):
