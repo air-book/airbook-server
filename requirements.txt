@@ -14,4 +14,5 @@ inmagik-drf-auth==0.1.1
 pilkit==1.1.12
 requests==2.6.0
 six==1.9.0
+jsonfield==1.0.3
 wsgiref==0.1.2
