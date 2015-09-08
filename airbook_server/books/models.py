@@ -16,10 +16,12 @@ class BookShop(models.Model):
 
 
 class BookAuthor(models.Model):
-    author = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, null=True, blank=True)
+    surname = models.CharField(max_length=200, null=True, blank=True)
+    nationality = models.CharField(max_length=100, null=True, blank=True)
 
     def __unicode__(self):
-        return u'%s' % self.author
+        return u'%s %s' %(self.name, self.surname)
 
 
 class BookCategory(models.Model):
