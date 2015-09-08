@@ -3,7 +3,8 @@ from django.db import models
 #from django.contrib.auth.models import User
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
+from authtools.models import User
 from jsonfield import JSONField
 
 

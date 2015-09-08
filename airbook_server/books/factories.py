@@ -1,6 +1,7 @@
 import factory
 from .models import BookShop, Book, BookImage
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
+from authtools.models import User
 import random
 import string
 from django.core.files import File
@@ -32,7 +33,7 @@ TEST_IMAGE = os.path.join(os.path.dirname(__file__), 'test.jpg')
 class UserFactory(factory.DjangoModelFactory):
     FACTORY_FOR = User
     #username = factory.LazyAttribute(lambda t: random_string(length = 20))
-    username = factory.Sequence(lambda n: 'user-%s' % n, type=str)
+    email = factory.Sequence(lambda n: 'user-%s@test.com' % n, type=str)
     password = factory.PostGenerationMethodCall('set_password', 'oooo')
 
 

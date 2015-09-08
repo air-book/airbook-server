@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'django_filters',
     'rest_framework.filters',
     'rest_framework_swagger',
+    'authtools',
     
     #our apps
     'airbook_users',
@@ -124,3 +125,5 @@ SWAGGER_SETTINGS = {
     #"is_authenticated": True,  #
     #"is_superuser": True,  #
 }
+
+AUTH_USER_MODEL = 'authtools.User'
