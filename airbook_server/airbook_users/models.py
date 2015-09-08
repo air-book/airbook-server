@@ -1,6 +1,7 @@
 from django.db import models
 
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
+from authtools.models import User
 from books.models import Book
 
 class WishItem(models.Model):

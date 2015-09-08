@@ -1,4 +1,5 @@
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
+from authtools.models import User
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 from .models import WishItem, CartItem
 from books.serializers import BookSerializer
@@ -7,7 +8,7 @@ from books.serializers import BookSerializer
 class UserSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'email', 'groups', 'is_staff']
+        fields = ['email', 'groups', 'is_staff']
 
 
 class WishItemSerializer(ModelSerializer):

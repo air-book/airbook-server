@@ -1,6 +1,7 @@
 import factory
-from .models import BookShop, Book, BookImage
-from django.contrib.auth.models import User
+from .models import BookShop, Book, BookImage, BookShopUser
+#from django.contrib.auth.models import User
+from authtools.models import User
 import random
 import string
 from django.core.files import File
@@ -25,22 +26,32 @@ def random_float(max,min):
 
 
 
-
-
 TEST_IMAGE = os.path.join(os.path.dirname(__file__), 'test.jpg')
 
 class UserFactory(factory.DjangoModelFactory):
     FACTORY_FOR = User
     #username = factory.LazyAttribute(lambda t: random_string(length = 20))
-    username = factory.Sequence(lambda n: 'user-%s' % n, type=str)
+    email = factory.Sequence(lambda n: 'user-%s@test.com' % n, type=str)
     password = factory.PostGenerationMethodCall('set_password', 'oooo')
+
+
+class BookShopUserFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = BookShopUser
+    user = factory.SubFactory(UserFactory)
 
 
 class BookShopFactory(factory.DjangoModelFactory):
     FACTORY_FOR = BookShop
     name =  factory.Sequence(lambda n: 'shop-%s' % n, type=str)#factory.LazyAttribute(lambda t: random_string())
-    user = factory.SubFactory(UserFactory)
-
+    
+    @factory.post_generation
+    def groups(self, create, extracted, **kwargs):
+        if not create:
+            # Simple build, do nothing.
+            return
+        BookShopUserFactory.create(bookshop=self)
+            
+            
 
 
 class BookImageFactory(factory.DjangoModelFactory):
