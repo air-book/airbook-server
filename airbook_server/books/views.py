@@ -58,7 +58,7 @@ class BooksAdminPermission(permissions.BasePermission):
     def has_permission(self, request, view):
         u = request.user
         try:
-            bs = request.user.bookshop        
+            bs = request.user.bookshopuser        
             return True
         except ObjectDoesNotExist:
             return False
@@ -71,7 +71,7 @@ class BooksAdminPermission(permissions.BasePermission):
             return True
 
         # Instance must have an attribute named `owner`.
-        return obj.bookshop == request.user.bookshop
+        return obj.bookshop == request.user.bookshopuser.bookshop
 
 
 class BookAdminViewSet(BookViewSet):
@@ -81,7 +81,7 @@ class BookAdminViewSet(BookViewSet):
         return Book.objects.filter(bookshop__user=self.request.user)
 
     def create(self, request):
-        bs = request.user.bookshop
+        bs = request.user.bookshopuser.bookshop
         data = request.data
         data['bookshop'] = bs.id
         serializer = BookSerializer(data=data, context={'request': request})
