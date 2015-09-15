@@ -65,7 +65,8 @@ BOOK_CONDITIONS = (
     (0, 'Pessimo'),
     (1, 'Medio'),
     (2, 'Buono'),
-    (3, 'Nuovo'),
+    (3, 'Ottimo'),
+    (4, 'Nuovo'),
 )
 
 
